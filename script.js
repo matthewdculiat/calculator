@@ -32,43 +32,61 @@ class Calculator {
 
     operate() {
         let computation;
-        const prev = parseFloat(this.previousOperand);
-        const current = parseFloat(this.currentOperand);
-        if (isNaN(prev) || isNaN(current)) return;
-        switch(this.operation) {
-            case '+':
-                computation = prev + current;
-                break;
-            case '-':
-                if (prev === '') {
-                    computation = 0 - current;
+        if (this.previousOperand && this.currentOperand) {
+            const prev = parseFloat(this.previousOperand);
+            const current = parseFloat(this.currentOperand);
+            if (isNaN(prev) || isNaN(current)) return;
+            switch(this.operation) {
+                case '+':
+                    computation = prev + current;
+                    break;
+                case '-':
+                    if (prev === '') {
+                        computation = 0 - current;
+                    }
+                    computation = prev - current;
+                    break;
+                case '*':
+                    computation = prev * current;
+                    break;
+                case '÷':
+                    if (current === 0) {
+                        alert("You can't divide by 0!")
+                    }
+                    computation = prev / current;
+                    break;
+                case '%':
+                    if (Number.isInteger(prev) && Number.isInteger(current)) {
+                        computation = prev % current;
+                    } else {
+                        alert("Both operands should be integers only. Click AC to clear screen.")
+                    }
+                    break;
+                case '^':
+                    if (prev < 0 && current < 1) {
+                        alert("The answer is imaginary. Click AC to clear screen.")
+                    }
+                    computation = prev ** current;
+                    break;
+                case 'Exp':
+                    computation = prev * (10 ** current);
+                    break;
+                default:
+                    return; 
+            }            
+        }
+        if (this.currentOperand == '' && this.previousOperand) {
+            const prev = parseFloat(this.previousOperand);
+            if (Number.isInteger(prev) && prev >= 0) {
+                if (prev === 0) computation = 1;
+                let product = 1;
+                for (let i = prev; i > 0; i--) {
+                    product *= i;
+                    computation = product;
                 }
-                computation = prev - current;
-                break;
-            case '*':
-                computation = prev * current;
-                break;
-            case '÷':
-                if (current === 0) {
-                    alert("You can't divide by 0!")
-                }
-                computation = prev / current;
-                break;
-            case '%':
-                if (Number.isInteger(prev) && Number.isInteger(current)) {
-                    computation = prev % current;
-                } else {
-                    alert("Both operands should be integers only. Click AC to clear screen.")
-                }
-                break;
-            case '^':
-                if (prev < 0 && current < 1) {
-                    alert("The answer is imaginary. Click AC to clear screen.")
-                }
-                computation = prev ** current;
-                break;
-            default:
-                return; 
+            } else {
+                alert("The number must be a positive integer only.")
+            }
         }
         this.currentOperand = computation;
         this.operation = undefined;
