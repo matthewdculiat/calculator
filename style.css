@@ -15,6 +15,7 @@ body {
     justify-content: center;
     align-content: center;
     min-height: 100vh;
+    gap: 5px;
     grid-template-columns: repeat(4, 100px);
     grid-template-rows: minmax(120px, auto) repeat(5, 100px);
 }
@@ -51,4 +52,15 @@ body {
 .output .current-operand {
     color: white;
     font-size: 2.5rem;
+}
+
+footer {
+    display: flex;
+    align-content: center;
+    justify-content: center;
+    padding: 10px;
+}
+
+footer > a {
+    text-decoration: none;
 }
