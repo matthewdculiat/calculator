@@ -23,14 +23,14 @@ class Calculator {
     chooseOperation(operation) {
         if (this.currentOperand === '') return;
         if (this.previousOperand !== '') {
-            this.compute();
+            this.operate();
         };
         this.operation = operation;
         this.previousOperand = this.currentOperand;
         this.currentOperand = '';
     }
 
-    compute() {
+    operate() {
         let computation;
         const prev = parseFloat(this.previousOperand);
         const current = parseFloat(this.currentOperand);
@@ -103,6 +103,10 @@ class Calculator {
             this.previousOperandTextElement.innerText = '';
         }
     };
+
+    plusMinus() {
+        this.currentOperand *= -1;
+    }
 };
 
 const numberButtons = document.querySelectorAll('[data-number]');
@@ -112,6 +116,7 @@ const deleteButton = document.querySelector('[data-delete]');
 const allClearButton = document.querySelector('[data-all-clear]');
 const previousOperandTextElement = document.querySelector('[data-previous-operand]');
 const currentOperandTextElement = document.querySelector('[data-current-operand]');
+const plusMinusButton = document.querySelector('[data-plus-minus]');
 
 const calculator = new Calculator(previousOperandTextElement, currentOperandTextElement);
 
@@ -130,7 +135,7 @@ operationButtons.forEach(button => {
 });
 
 equalsButton.addEventListener('click', button => {
-    calculator.compute();
+    calculator.operate();
     calculator.updateDisplay();
 })
 
@@ -142,5 +147,10 @@ allClearButton.addEventListener('click', button => {
 
 deleteButton.addEventListener('click', button => {
     calculator.delete();
+    calculator.updateDisplay();
+})
+
+plusMinusButton.addEventListener('click', button => {
+    calculator.plusMinus();
     calculator.updateDisplay();
 })
