@@ -40,12 +40,18 @@ class Calculator {
                 computation = prev + current;
                 break;
             case '-':
+                if (prev === '') {
+                    computation = 0 - current;
+                }
                 computation = prev - current;
                 break;
             case '*':
                 computation = prev * current;
                 break;
             case '÷':
+                if (current === 0) {
+                    alert("You can't divide by 0!")
+                }
                 computation = prev / current;
                 break;
             case '%':
