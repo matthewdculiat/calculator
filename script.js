@@ -51,7 +51,8 @@ class Calculator {
                     break;
                 case '÷':
                     if (current === 0) {
-                        alert("You can't divide by 0!")
+                        alert("You can't divide by 0! Click AC to clear screen.");
+                        break;
                     }
                     computation = prev / current;
                     break;
@@ -59,7 +60,7 @@ class Calculator {
                     if (Number.isInteger(prev) && Number.isInteger(current)) {
                         computation = prev % current;
                     } else {
-                        alert("Both operands should be integers only. Click AC to clear screen.")
+                        alert("Both operands should be integers only! Click AC to clear screen.")
                     }
                     break;
                 case '^':
@@ -172,3 +173,38 @@ plusMinusButton.addEventListener('click', button => {
     calculator.plusMinus();
     calculator.updateDisplay();
 })
+
+window.addEventListener('keydown', e => {
+    if (e.key >= 0 && e.key <= 9 || e.key === '.') {
+        calculator.appendNumber(e.key);
+        calculator.updateDisplay();
+    }
+    if (e.key === '=' || e.key === 'Enter') {
+        calculator.operate();
+        calculator.updateDisplay();
+    };
+    if (e.key === 'Backspace') {
+        calculator.delete();
+        calculator.updateDisplay();
+    };
+    if (e.key === 'Escape') {
+        calculator.clear();
+        calculator.updateDisplay();
+    };
+    if (e.key === '+' || e.key === '-' || e.key === '*' || e.key === '/' || e.key === '!' || e.key === '%' || e.key === '^' || (e.key === 'E' || e.key === 'e')) {
+        calculator.chooseOperation(convertOperator(e.key));
+        calculator.updateDisplay();
+    };
+})
+
+function convertOperator(keyboardOperator) {
+    if (keyboardOperator === '+') return '+';
+    if (keyboardOperator === '-') return '-';
+    if (keyboardOperator === '*') return '*';
+    if (keyboardOperator === '/') return '÷';
+    if (keyboardOperator === '!') return '!';
+    if (keyboardOperator === '/') return '÷';
+    if (keyboardOperator === '%') return '%';
+    if (keyboardOperator === '^') return '^';
+    if (keyboardOperator === 'E' || keyboardOperator === 'e') return 'Exp';
+}
