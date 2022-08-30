@@ -195,6 +195,10 @@ window.addEventListener('keydown', e => {
         calculator.chooseOperation(convertOperator(e.key));
         calculator.updateDisplay();
     };
+    if (e.key === 'Shift') {
+        calculator.plusMinus();
+        calculator.updateDisplay();
+    }
 })
 
 function convertOperator(keyboardOperator) {
